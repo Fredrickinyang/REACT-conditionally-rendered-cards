@@ -11,12 +11,12 @@ function App() {
   const [allUsers, setAllUsers] = React.useState(totalUsers);
 
   const getMale = () => {
-    let allMale = users.filter((male) => male.gender == "Male");
+    let allMale = users.filter((male) => male.gender === "Male");
     setAllUsers(allMale);
   };
 
   const getFemale = () => {
-    let allFemale = users.filter((female) => female.gender == "Female");
+    let allFemale = users.filter((female) => female.gender === "Female");
     setAllUsers(allFemale);
   };
 
