@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { users } from "../src/data";
+import React from "react";
+import SideBar from "./sidebar";
+import Card from "./card";
+
+export const RenderContext = React.createContext();
 
 function App() {
+  let totalUsers = users;
+  const [allUsers, setAllUsers] = React.useState(totalUsers);
+
+  const getMale = () => {
+    let allMale = users.filter((male) => male.gender == "Male");
+    setAllUsers(allMale);
+  };
+
+  const getFemale = () => {
+    let allFemale = users.filter((female) => female.gender == "Female");
+    setAllUsers(allFemale);
+  };
+
+  const getAllUsers = () => {
+    setAllUsers(totalUsers);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section>
+      <RenderContext.Provider value={[getMale, getFemale, getAllUsers]}>
+        <SideBar />
+        <h1 className="title">MY TOP PAID EMPLOYEES</h1>
+        <section className="general-container">
+          {allUsers.map((user, index) => {
+            return <Card key={index} {...user} />;
+          })}
+        </section>
+      </RenderContext.Provider>
+    </section>
   );
 }
 
